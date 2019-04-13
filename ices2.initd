@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Init script for ices2
+#
+# NOTE:
+# You must set <background>0</background> in the ices2 config file.
+# Since otherwise start-stop-daemon can't find the correct PID
+
+USER=pi
+GROUP=pi
+CONFIG=/etc/ices2/ices-alsa.xml
+
+
+start() {
+  start-stop-daemon --start --pidfile /var/run/ices2.pid --user $USER --chuid ${USER}:${GROUP} --make-pidfile --background --startas /usr/bin/ices2 -- $CONFIG
+}
+
+stop() {
+  start-stop-daemon --stop --pidfile /var/run/ices2.pid --user $USER --remove-pidfile
+}
+
+case $1 in
+  start|stop) "$1" ;;
+esac
