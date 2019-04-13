@@ -1,8 +1,21 @@
+This is a guide for how to set up an icecast2 streaming server and an ices2 streaming client connected to a USB microphone.
+
+# Setting up icecast2
+
+icecast2 is an audio streaming server with a built-in web interface.
+
+```
+sudo apt install icecast2
+```
+
+Make sure you set secure passwords when asked (and that they are different). Take special note of the source/client password as you will need it for ices2.
 
 # Setting up ices2
 
+ices2 is a source client for icecast2 that can take an audio input such as an ALSA microphone device, encode the stream to Ogg Vorbis and send it to an icecast server. It is limited to two channels and does not yet support the Opus codec.
+
 ```
-apt install ices2
+sudo apt install ices2
 ```
 
 Copy `ices-alsa.xml` to `/etc/ices2/`. Create the directory if necessary. Set permissions so only the user that will be running `ices2` can read and write the config file. Change the config file setting the correct password.
@@ -42,7 +55,7 @@ You should also change the rate in the `<input>` section and samplerate in the `
 ices2 /etc/ices2/ices-alsa.xml
 ```
 
-Check the log file `/var/log/ices.log` for any errors and check the icecast server to see if the stream works.
+Check the log file `/var/log/ices.log` for any errors and check the icecast server URL to see if the stream works.
 
 # Make ices2 start automatically on boot
 
